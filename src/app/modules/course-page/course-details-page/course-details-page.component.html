@@ -1,1 +1,108 @@
-<p>course-details-page works!</p>
+
+<div class="container">
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search"
+        class="form-control"
+        [(ngModel)]="searchKey"
+        (keyup)="getCourses()"
+      />
+      <div>
+        <mat-icon
+          aria-hidden="false"
+          aria-label=""
+          fontIcon="search"
+          class="search-icon"
+        ></mat-icon>
+      </div>
+    </div>
+    <div class="table-container">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+  
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Course ID</th>
+          <td mat-cell *matCellDef="let Course">{{ Course.id }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Course Name</th>
+          <td mat-cell *matCellDef="let Course">{{ Course.name }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Course Description</th>
+          <td mat-cell *matCellDef="let Course">{{ Course.description }}</td>
+        </ng-container>
+  
+        <ng-container matColumnDef="language">
+          <th mat-header-cell *matHeaderCellDef>Course Language</th>
+          <td mat-cell *matCellDef="let Course">{{ Course.language }}</td>
+        </ng-container>
+        <ng-container matColumnDef="year">
+            <th mat-header-cell *matHeaderCellDef>Course Year</th>
+            <td mat-cell *matCellDef="let Course">{{ Course.year }}</td>
+          </ng-container>
+          <ng-container matColumnDef="fee">
+            <th mat-header-cell *matHeaderCellDef>Course Fee</th>
+            <td mat-cell *matCellDef="let Course">{{ Course.fee }}</td>
+          </ng-container>
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef>Course Status</th>
+            <td mat-cell *matCellDef="let Course">{{ Course.active }}</td>
+          </ng-container>
+
+          <mat-checkbox [(ngModel)]="isChecked">Check me!</mat-checkbox>
+
+        
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef class="header"></th>
+          <td class="alnright" mat-cell *matCellDef="let Course">
+            <div class="action-container">
+              <div class="edit-box">
+                <div></div>
+                <a (click)="openEditCourse(Course)">
+                  <mat-icon
+                    class="edit-icon"
+                    aria-hidden="false"
+                    aria-label=""
+                    fontIcon="edit_note"
+                  ></mat-icon>
+                </a>
+                <div>Edit Hotel</div>
+              </div>
+              <div class="delete-box">
+                <div>
+                  <a (click)="openConfirmDeleteCourse(Course.id)">
+                    <mat-icon
+                      class="delete-icon"
+                      aria-hidden="false"
+                      aria-label=""
+                      fontIcon="delete_forever"
+                    ></mat-icon>
+                  </a>
+                </div>
+                <div>Delete Course</div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+   
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+  
+      <mat-paginator
+        [pageIndex]="currentPage"
+        [pageSize]="pageSize"
+        (page)="pageChanged($event)"
+        showFirstLastButtons
+        aria-label="Select page of Courses"
+      ></mat-paginator>
+    </div>
+  </div>
+  

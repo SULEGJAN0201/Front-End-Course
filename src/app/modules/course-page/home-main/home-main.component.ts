@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { CourseDetailsPageComponent } from '../course-details-page/course-details-page.component';
+
 
 @Component({
   selector: 'app-home-main',
